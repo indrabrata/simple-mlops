@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/indra/Documents/Projects/simple-mlops-deployment/mlruns/0/92590149f0144c888516c2e5441af4f6/artifacts
+end_time: 1756837567574
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 92590149f0144c888516c2e5441af4f6
+run_name: mercurial-smelt-687
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756837556541
+status: 4
+tags: []
+user_id: cupcakez

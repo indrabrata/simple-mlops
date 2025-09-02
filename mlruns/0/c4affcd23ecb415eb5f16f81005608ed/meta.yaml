@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/indra/Documents/Projects/simple-mlops-deployment/mlruns/0/c4affcd23ecb415eb5f16f81005608ed/artifacts
+end_time: 1756830246868
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c4affcd23ecb415eb5f16f81005608ed
+run_name: carefree-grouse-638
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756830233488
+status: 3
+tags: []
+user_id: cupcakez

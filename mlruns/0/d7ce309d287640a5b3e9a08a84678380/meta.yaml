@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/indra/Documents/Projects/simple-mlops-deployment/mlruns/0/d7ce309d287640a5b3e9a08a84678380/artifacts
+end_time: 1756838280419
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d7ce309d287640a5b3e9a08a84678380
+run_name: unique-moose-771
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756838273451
+status: 3
+tags: []
+user_id: cupcakez
