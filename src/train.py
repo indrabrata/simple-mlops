@@ -27,6 +27,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 clf = RandomForestClassifier(n_estimators=100, random_state=42)
 
+mlflow.set_tracking_uri("file:./mlruns")
 with mlflow.start_run() as run:
     clf.fit(X_train, y_train)
 
@@ -64,12 +65,7 @@ with mlflow.start_run() as run:
     plt.xlabel("Predicted")
     plt.tight_layout()
 
-    mlflow.set_tracking_uri("file:./mlruns")
-    mlflow_sklearn.log_model(
-    clf,
-    name="model",
-    registered_model_name="iris-ml"
-    )
+    mlflow_sklearn.log_model(clf, name="model", registered_model_name="iris-ml")
 
     joblib.dump(clf, MODEL_PATH)
 
