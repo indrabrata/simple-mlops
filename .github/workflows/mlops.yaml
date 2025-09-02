@@ -41,7 +41,7 @@ jobs:
           fi
 
       - name: "Run data validation tests ✅"
-        run: pytest -q /tests/test_data_validation.py
+        run: pytest -q tests/test_data_validation.py
 
       - name: "Run training (produce model artifact) 🤖"
         run: |
@@ -49,10 +49,10 @@ jobs:
           python train.py
 
       - name: "Run model tests ✅"
-        run: pytest -q /tests/test_model.py
+        run: pytest -q tests/test_model.py
 
       - name: "Run unit tests ✅"
-        run: pytest -q /tests/test_api.py
+        run: pytest -q tests/test_api.py
 
       - name: "Upload MLflow artifacts ⬆️"
         id: upload-mlflow
