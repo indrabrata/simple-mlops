@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.MLFLOW_ARTIFACT_NAME }}
-          path: .mlruns/
+          path: mlruns/
 
       - name: "Upload Model artifacts ⬆️"
         id: upload-model
