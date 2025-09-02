@@ -40,9 +40,6 @@ jobs:
             curl -L -o iris.csv https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv
           fi
 
-      - name: "Run unit tests ✅"
-        run: pytest -q /tests/test_api.py
-
       - name: "Run data validation tests ✅"
         run: pytest -q /tests/test_data_validation.py
 
@@ -53,6 +50,9 @@ jobs:
 
       - name: "Run model tests ✅"
         run: pytest -q /tests/test_model.py
+
+      - name: "Run unit tests ✅"
+        run: pytest -q /tests/test_api.py
 
       - name: "Upload MLflow artifacts ⬆️"
         id: upload-mlflow
