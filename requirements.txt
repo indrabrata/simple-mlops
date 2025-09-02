@@ -413,7 +413,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 pytz==2025.2
     # via pandas
-pywin32==311
+pywin32==311; sys_platform == "win32"
     # via
     #   docker
     #   dvc-task
