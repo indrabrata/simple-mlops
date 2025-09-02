@@ -86,7 +86,7 @@ jobs:
 
       - name: "Login to GitHub Container Registry 🔑"
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: "Build and push Docker image 🚢"
