@@ -64,7 +64,13 @@ with mlflow.start_run() as run:
     plt.xlabel("Predicted")
     plt.tight_layout()
 
-    mlflow_sklearn.log_model(clf, artifact_path="model", registered_model_name="iris-ml")
+    mlflow.set_tracking_uri("file:./mlruns")
+    mlflow_sklearn.log_model(
+    clf,
+    name="model",
+    registered_model_name="iris-ml"
+    )
+
     joblib.dump(clf, MODEL_PATH)
 
     print(f"Run ID: {run.info.run_id}, Acc: {acc:.3f}, F1: {f1:.3f}")
