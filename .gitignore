@@ -10,3 +10,4 @@ wheels/
 .venv
 creds.json
 models/
+mlruns/
