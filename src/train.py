@@ -15,7 +15,6 @@ from sklearn.model_selection import train_test_split
 from preprocessing import load_and_preprocess
 
 MODEL_DIR = "models"
-MODEL_PATH = os.path.join(MODEL_DIR, "model.joblib")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
 data_path = "iris.csv"
@@ -78,6 +77,7 @@ with mlflow.start_run() as run:
     plt.tight_layout()
     
     plot_path = "confusion_matrix.png"
+    plt.savefig("confusion_matrix.png")
     try:
         mlflow.log_artifact(plot_path)
     except Exception as e:
@@ -88,17 +88,20 @@ with mlflow.start_run() as run:
     try:
         mlflow_sklearn.log_model(
             clf, 
-            artifact_path="model",
-            registered_model_name="iris-ml"
+            name="model",
+            registered_model_name="iris-ml",
         )
         print("MLflow model logged successfully")
     except Exception as e:
         print(f"MLflow model logging failed: {e}")
         print("Model will still be saved locally with joblib")
     
-    joblib.dump(clf, MODEL_PATH)
+    joblib.dump(clf, os.path.join(MODEL_DIR, "model.joblib"))
+    
+    mlflow.log_artifact(os.path.join(MODEL_DIR, "scaler.joblib"))
+    mlflow.log_artifact(os.path.join(MODEL_DIR, "encoder.joblib"))
     
     print(f"Run ID: {run.info.run_id}, Acc: {acc:.3f}, F1: {f1:.3f}")
-    print(f"Model saved to: {MODEL_PATH}")
+    print(f"Model saved to: {os.path.join(MODEL_DIR, "model.joblib")}")
     print(f"Species classes: {class_names}")
     print(f"Scaler and encoder saved to models/ directory")

@@ -7,8 +7,12 @@ permissions:
 on:
   push:
     branches: [master]
+    paths-ignore:
+      - "README.md"
   pull_request:
     branches: [master]
+    paths-ignore:
+      - "README.md"
 
 env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/iris-ml
@@ -92,7 +96,6 @@ jobs:
       - name: "Build and push Docker image 🚢"
         run: |
           IMAGE_TAG=${{ env.IMAGE_NAME }}:${{ github.sha }}
-          # also push 'latest' tag
           docker build -t "${IMAGE_TAG}" .
           docker tag "${IMAGE_TAG}" "${{ env.IMAGE_NAME }}:latest"
           docker push "${IMAGE_TAG}"

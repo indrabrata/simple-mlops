@@ -16,17 +16,14 @@ app = FastAPI(title="Iris Classifier", version="0.1")
 def load_model():
     global MODEL, SCALER, ENCODER
     
-    # Load model
     if not os.path.exists(MODEL_PATH):
         raise RuntimeError(f"Model file not found at {MODEL_PATH}")
     MODEL = joblib.load(MODEL_PATH)
     
-    # Load scaler
     if not os.path.exists(SCALER_PATH):
         raise RuntimeError(f"Scaler file not found at {SCALER_PATH}")
     SCALER = joblib.load(SCALER_PATH)
     
-    # Load encoder
     if not os.path.exists(ENCODER_PATH):
         raise RuntimeError(f"Encoder file not found at {ENCODER_PATH}")
     ENCODER = joblib.load(ENCODER_PATH)
@@ -40,7 +37,6 @@ def health():
 @app.post("/predict")
 def predict(payload: PredictRequest):
     try:
-        # Prepare input features
         x = np.array([[
             payload.sepal_length,
             payload.sepal_width,
