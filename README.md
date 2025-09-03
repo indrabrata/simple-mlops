@@ -1,6 +1,6 @@
-# Simple MLOps Deployment
+# Simple MLOps
 
-This repository contains a simple example of deploying machine learning models using MLOps principles. The project demonstrates how to set up a basic pipeline for training, validating, and deploying a machine learning model.
+This repository contains a simple example of implementation github action in MLOps principles. The project demonstrates how to set up a basic pipeline for training, validating, and push application into github package.
 
 ## Features
 
