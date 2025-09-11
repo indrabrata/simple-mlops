@@ -1,6 +1,6 @@
 [core]
     remote = myremote
 ['remote "myremote"']
-    url = gdrive://12UqQbY8mVPZJrYj98OyTLdkszoLNBtFP
+    url = gdrive://1woAPiM3RytX-cvyYNspkhrTURedUm3X1
     gdrive_use_service_account = true
     gdrive_service_account_json_file_path = ../creds.json

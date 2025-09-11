@@ -39,7 +39,6 @@ jobs:
 
       - name: "Download dataset 📥"
         run: |
-          mkdir -p data
           if [ ! -f iris.csv ]; then
             curl -L -o iris.csv https://raw.githubusercontent.com/uiuc-cse/data-fa14/gh-pages/data/iris.csv
           fi
