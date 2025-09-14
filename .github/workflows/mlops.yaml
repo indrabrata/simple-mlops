@@ -3,6 +3,7 @@ name: "Simple MLOps Deployment 🚀"
 permissions:
   contents: read
   packages: write
+  security-events: write
 
 on:
   push:
@@ -78,7 +79,7 @@ jobs:
       - name: "Checkout code 📦"
         uses: actions/checkout@v4
 
-      - name: "Download model artifact from previous job 📥"
+      - name: "Download model artifact 📥"
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.MODEL_ARTIFACT_NAME }}
@@ -92,10 +93,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
-      - name: "Build and push Docker image 🚢"
+      - name: "Build Docker image 🏗️"
+        run: docker build -t "${{ env.IMAGE_NAME }}:${{ github.sha }}" .
+
+      - name: "Scan image with Trivy 🔍"
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          format: "sarif"
+          output: "trivy-results.sarif"
+          exit-code: "1"
+          severity: "CRITICAL,HIGH"
+
+      - name: "Upload Trivy scan results"
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: trivy-results.sarif
+
+      - name: "Push Docker image 🚢"
         run: |
-          IMAGE_TAG=${{ env.IMAGE_NAME }}:${{ github.sha }}
-          docker build -t "${IMAGE_TAG}" .
-          docker tag "${IMAGE_TAG}" "${{ env.IMAGE_NAME }}:latest"
-          docker push "${IMAGE_TAG}"
+          docker tag "${{ env.IMAGE_NAME }}:${{ github.sha }}" "${{ env.IMAGE_NAME }}:latest"
+          docker push "${{ env.IMAGE_NAME }}:${{ github.sha }}"
           docker push "${{ env.IMAGE_NAME }}:latest"
