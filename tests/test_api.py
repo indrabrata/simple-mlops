@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from src.app import app
+from src import app
 
 
 def test_predict_valid_input():

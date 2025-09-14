@@ -19,7 +19,7 @@ def load_and_preprocess(filepath: str):
     y_encoded = encoder.fit_transform(y)
     
     
-    models_dir = "models"
+    models_dir = os.getenv("MODEL_DIR", "models")
     if not os.path.exists(models_dir):
         os.makedirs(models_dir)
     scaler_path = os.path.join(models_dir, "scaler.joblib")
@@ -30,6 +30,6 @@ def load_and_preprocess(filepath: str):
         joblib.dump(encoder, encoder_path)
     
     print(f"Species classes: {encoder.classes_}")
-    print(f"Encoded mapping: {dict(zip(encoder.classes_, encoder.transform(encoder.classes_)))}") # type: ignore
+    print(f"Encoded mapping: {dict(zip(encoder.classes_, encoder.transform(encoder.classes_)))}")
     
     return X_scaled, y_encoded

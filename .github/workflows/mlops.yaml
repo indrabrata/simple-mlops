@@ -21,7 +21,7 @@ env:
 
 jobs:
   test_and_train:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       model-uploaded: ${{ steps.upload-model.outputs.artifact-uploaded }}
       mlflow-uploaded: ${{ steps.upload-mlflow.outputs.artifact-uploaded }}

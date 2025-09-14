@@ -1,10 +1,10 @@
+import logging
 import os
 
 import joblib
 import matplotlib.pyplot as plt
 import mlflow
 import numpy as np
-import pandas as pd
 import seaborn as sns
 from mlflow import sklearn as mlflow_sklearn
 from sklearn.ensemble import RandomForestClassifier
@@ -12,12 +12,12 @@ from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_score, recall_score, roc_auc_score)
 from sklearn.model_selection import train_test_split
 
-from preprocessing import load_and_preprocess
+from .preprocessing import load_and_preprocess
 
-MODEL_DIR = "models"
+MODEL_DIR = os.getenv("MODEL_DIR", "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-data_path = "iris.csv"
+data_path = os.getenv("DATA_PATH", "iris.csv")
 X, y = load_and_preprocess(data_path)
 
 X_train, X_test, y_train, y_test = train_test_split(
@@ -81,7 +81,7 @@ with mlflow.start_run() as run:
     try:
         mlflow.log_artifact(plot_path)
     except Exception as e:
-        print(f"Could not log plot artifact: {e}")
+        logging.warning(f"Could not log plot artifact: {e}")
     plt.close()
     
     
@@ -91,17 +91,16 @@ with mlflow.start_run() as run:
             name="model",
             registered_model_name="iris-ml",
         )
-        print("MLflow model logged successfully")
+        logging.info("MLflow model logged successfully")
     except Exception as e:
-        print(f"MLflow model logging failed: {e}")
-        print("Model will still be saved locally with joblib")
+        logging.error(f"MLflow model logging failed: {e}")
+        
     
     joblib.dump(clf, os.path.join(MODEL_DIR, "model.joblib"))
     
     mlflow.log_artifact(os.path.join(MODEL_DIR, "scaler.joblib"))
     mlflow.log_artifact(os.path.join(MODEL_DIR, "encoder.joblib"))
     
-    print(f"Run ID: {run.info.run_id}, Acc: {acc:.3f}, F1: {f1:.3f}")
-    print(f"Model saved to: {os.path.join(MODEL_DIR, "model.joblib")}")
-    print(f"Species classes: {class_names}")
-    print(f"Scaler and encoder saved to models/ directory")
+    logging.info(f"Run ID: {run.info.run_id}, Acc: {acc:.3f}, F1: {f1:.3f}")
+    logging.info(f"Model saved to: {os.path.join(MODEL_DIR, "model.joblib")}")
+    logging.info(f"Species classes: {class_names}")
