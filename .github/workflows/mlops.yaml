@@ -49,7 +49,7 @@ jobs:
       - name: "Run training (produce model artifact) 🤖"
         run: |
           mkdir -p models
-          python src/train.py
+          python -m src.train
 
       - name: "Run model tests ✅"
         run: pytest -q tests/test_model.py
