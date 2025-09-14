@@ -9,3 +9,7 @@ This repository contains a simple example of implementation github action in MLO
 - Using MLflow for experiment tracking
 - Pushing docker image into registry
 - Version control with DVC (not yet)
+
+## Note for self-hosted runner
+
+[Issue Runner](https://github.com/actions/setup-python/issues/460)
