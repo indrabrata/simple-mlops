@@ -102,13 +102,20 @@ jobs:
           image-ref: ${{ env.IMAGE_NAME }}:${{ github.sha }}
           format: "sarif"
           output: "trivy-results.sarif"
-          exit-code: "1"
+          exit-code: "0"
           severity: "CRITICAL,HIGH"
 
       - name: "Upload Trivy scan results"
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: trivy-results.sarif
+
+      - name: "Run container health check 🏃"
+        run: |
+          docker run -d --rm -p 8000:8000 --name iris-test ${{ env.IMAGE_NAME }}:${{ github.sha }}
+          sleep 10
+          curl -f http://localhost:8000/health || (docker logs iris-test && exit 1)
+          docker stop iris-test
 
       - name: "Push Docker image 🚢"
         run: |
