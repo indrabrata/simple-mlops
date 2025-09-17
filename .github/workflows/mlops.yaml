@@ -38,25 +38,46 @@ jobs:
       - name: Set up SSH for ED25519
         run: |
           mkdir -p ~/.ssh
-          chmod 700 ~/.ssh 
+          chmod 700 ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+
+          # Verify key format
+          echo "Checking private key format:"
+          head -1 ~/.ssh/id_ed25519
+
+          # Add known hosts
           ssh-keyscan -p 11003 -H proxy.bccdev.id >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-      - name: "Install deps for tests/training 📚"
-        run: python -m pip install -r requirements.txt
+          # Show SSH setup
+          ls -la ~/.ssh/
 
-      - name: Configure DVC remote
+      - name: Debug SSH connection
         run: |
+          echo "=== SSH Debug Information ==="
+          ssh -vvv -i ~/.ssh/id_ed25519 -p 11003 -o StrictHostKeyChecking=no dev@proxy.bccdev.id "echo 'SSH connection successful'" 2>&1 || echo "SSH connection failed"
+
+      - name: Configure DVC remote with debug
+        run: |
+          echo "Current DVC remote config:"
+          dvc remote list -v
+
+          echo "Configuring DVC remote:"
           dvc remote modify myremote keyfile ~/.ssh/id_ed25519
-          dvc remote modify myremote user dev  
-          dvc remote modify myremote port 11003 
-          dvc remote modify myremote passphrase "${{ secrets.SSH_KEY_PASSPHRASE }}"
+          dvc remote modify myremote user dev
+          dvc remote modify myremote port 11003
+          if [ ! -z "${{ secrets.SSH_KEY_PASSPHRASE }}" ]; then
+            dvc remote modify myremote passphrase "${{ secrets.SSH_KEY_PASSPHRASE }}"
+          fi
 
-      - name: "Download dataset 📥"
+          echo "Updated DVC remote config:"
+          dvc remote list -v
+
+      - name: Download dataset with debug
         run: |
-          dvc pull
+          echo "Attempting DVC pull with verbose output..."
+          dvc pull -v
 
       - name: "Run data validation tests ✅"
         run: pytest -q tests/test_data_validation.py
