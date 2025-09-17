@@ -13,3 +13,4 @@ models/
 mlruns/
 confusion_matrix.png
 iris.csv
+id_ed25519
