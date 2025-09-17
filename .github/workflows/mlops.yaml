@@ -130,7 +130,7 @@ jobs:
         run: echo "${GITHUB_TOKEN}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
 
       - name: "Build Docker image 🏗️"
-        run: docker build -t "${{ env.IMAGE_NAME }}:${{ github.sha }}" ./deployment/Dockerfile.app
+        run: docker build -t "${{ env.IMAGE_NAME }}:${{ github.sha }}" -f ./deployment/Dockerfile.app .
 
       - name: "Scan image with Trivy 🔍"
         uses: aquasecurity/trivy-action@master
