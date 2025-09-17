@@ -17,7 +17,7 @@ from .preprocessing import load_and_preprocess
 MODEL_DIR = os.getenv("MODEL_DIR", "models")
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-data_path = os.getenv("DATA_PATH", "iris.csv")
+data_path = os.getenv("DATA_PATH", "data/iris.csv")
 X, y = load_and_preprocess(data_path)
 
 X_train, X_test, y_train, y_test = train_test_split(

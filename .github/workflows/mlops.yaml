@@ -19,6 +19,9 @@ env:
   IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/iris-ml
   MODEL_ARTIFACT_NAME: model-artifact
   MLFLOW_ARTIFACT_NAME: mlflow-artifacts
+  DATA_PATH: ${{ secrets.DATA_PATH }}
+  MODEL_DIR: ${{ secrets.MODEL_DIR }}
+  MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
 
 jobs:
   test_and_train:
@@ -54,21 +57,8 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
 
-          # Verify key format
-          echo "Checking private key format:"
-          head -1 ~/.ssh/id_ed25519
-
-          # Add known hosts
           ssh-keyscan -p 11003 -H proxy.bccdev.id >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
-
-          # Show SSH setup
-          ls -la ~/.ssh/
-
-      - name: Debug SSH connection
-        run: |
-          echo "=== SSH Debug Information ==="
-          ssh -vvv -i ~/.ssh/id_ed25519 -p 11003 -o StrictHostKeyChecking=no dev@proxy.bccdev.id "echo 'SSH connection successful'" 2>&1 || echo "SSH connection failed"
 
       - name: Configure DVC remote with debug
         run: |
@@ -83,7 +73,6 @@ jobs:
             dvc remote modify myremote passphrase "${{ secrets.SSH_KEY_PASSPHRASE }}"
           fi
 
-          echo "Updated DVC remote config:"
           dvc remote list -v
 
       - name: Download dataset with debug
