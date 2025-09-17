@@ -31,7 +31,9 @@ appdirs==1.4.4
     #   iterative-telemetry
     #   pydrive2
 asyncssh==2.21.0
-    # via scmrepo
+    # via
+    #   scmrepo
+    #   sshfs
 atpublic==6.0.1
     # via flufl-lock
 attrs==25.3.0
@@ -40,6 +42,8 @@ attrs==25.3.0
     #   dvc
     #   dvc-data
     #   sqltrie
+bcrypt==4.3.0
+    # via asyncssh
 billiard==4.2.1
     # via celery
 blinker==1.9.0
@@ -83,11 +87,7 @@ click-repl==0.3.0
 cloudpickle==3.1.1
     # via mlflow-skinny
 colorama==0.4.6
-    # via
-    #   click
-    #   dvc
-    #   pytest
-    #   tqdm
+    # via dvc
 configobj==5.0.9
     # via dvc
 contourpy==1.3.3
@@ -125,6 +125,7 @@ dvc==3.63.0
     # via
     #   simple-mlops-deployment (pyproject.toml)
     #   dvc-gdrive
+    #   dvc-ssh
 dvc-data==3.16.12
     # via dvc
 dvc-gdrive==3.0.1
@@ -136,6 +137,8 @@ dvc-objects==5.1.1
     #   dvc
     #   dvc-data
 dvc-render==1.0.2
+    # via dvc
+dvc-ssh==4.2.1
     # via dvc
 dvc-studio-client==0.22.0
     # via dvc
@@ -169,6 +172,7 @@ fsspec==2025.7.0
     #   dvc-objects
     #   pydrive2
     #   scmrepo
+    #   sshfs
 funcy==2.0
     # via
     #   dvc
@@ -210,6 +214,8 @@ greenlet==3.2.4
     # via sqlalchemy
 gto==1.8.0
     # via dvc
+gunicorn==23.0.0
+    # via mlflow
 h11==0.16.0
     # via
     #   httpcore
@@ -245,8 +251,6 @@ jinja2==3.1.6
     # via flask
 joblib==1.5.2
     # via scikit-learn
-kagglehub==0.3.13
-    # via simple-mlops-deployment (pyproject.toml)
 kiwisolver==1.4.9
     # via matplotlib
 kombu==5.5.4
@@ -316,8 +320,8 @@ orjson==3.11.3
 packaging==25.0
     # via
     #   dvc
+    #   gunicorn
     #   hydra-core
-    #   kagglehub
     #   kombu
     #   matplotlib
     #   mlflow-skinny
@@ -413,13 +417,8 @@ python-dateutil==2.9.0.post0
     #   pandas
 pytz==2025.2
     # via pandas
-pywin32==311; sys_platform == "win32"
-    # via
-    #   docker
-    #   dvc-task
 pyyaml==6.0.2
     # via
-    #   kagglehub
     #   mlflow-skinny
     #   omegaconf
     #   pydrive2
@@ -431,7 +430,6 @@ requests==2.32.5
     #   dvc-studio-client
     #   google-api-core
     #   iterative-telemetry
-    #   kagglehub
     #   mlflow-skinny
 rich==14.1.0
     # via
@@ -491,6 +489,8 @@ sqlparse==0.5.3
     # via mlflow-skinny
 sqltrie==0.11.2
     # via dvc-data
+sshfs==2025.2.0
+    # via dvc-ssh
 starlette==0.47.3
     # via fastapi
 tabulate==0.9.0
@@ -506,7 +506,6 @@ tqdm==4.67.1
     #   dvc
     #   dvc-data
     #   fsspec
-    #   kagglehub
     #   pydrive2
     #   scmrepo
 typer==0.17.3
@@ -552,8 +551,6 @@ voluptuous==0.15.2
     # via
     #   dvc
     #   dvc-studio-client
-waitress==3.0.2
-    # via mlflow
 wcwidth==0.2.13
     # via prompt-toolkit
 werkzeug==3.1.3
