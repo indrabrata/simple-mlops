@@ -38,8 +38,10 @@ jobs:
       - name: Set up SSH for ED25519
         run: |
           mkdir -p ~/.ssh
+          chmod 700 ~/.ssh 
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
+          chmod 644 ~/.ssh/known_hosts 
           ssh-keyscan -p 11003 -H proxy.bccdev.id >> ~/.ssh/known_hosts
 
       - name: "Install deps for tests/training 📚"
@@ -48,7 +50,9 @@ jobs:
       - name: Configure DVC remote
         run: |
           dvc remote modify myremote keyfile ~/.ssh/id_ed25519
-          dvc remote modify myremote passphrase ${{ secrets.SSH_KEY_PASSPHRASE }}
+          dvc remote modify myremote user dev  
+          dvc remote modify myremote port 11003  # Set port if needed
+          dvc remote modify myremote passphrase "${{ secrets.SSH_KEY_PASSPHRASE }}"
 
       - name: "Download dataset 📥"
         run: |
