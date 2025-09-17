@@ -76,12 +76,12 @@ jobs:
           dvc remote list -v
 
           echo "Configuring DVC remote:"
+          dvc remote modify myremote keyfile ~/.ssh/id_ed25519
           dvc remote modify myremote user dev
           dvc remote modify myremote port 11003
-          if [ ! -z "${{ secrets.PASSWORD }}" ]; then
-            dvc remote modify myremote password "${{ secrets.PASSWORD }}"
+          if [ ! -z "${{ secrets.SSH_KEY_PASSPHRASE }}" ]; then
+            dvc remote modify myremote passphrase "${{ secrets.SSH_KEY_PASSPHRASE }}"
           fi
-          dvc remote modify --local myremote password "${{ secrets.PASSWORD }}"
 
           echo "Updated DVC remote config:"
           dvc remote list -v
