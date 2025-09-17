@@ -4,4 +4,4 @@
     url = ssh://dev@proxy.bccdev.id:11003/home/dev/dataset
     user = dev
     port = 11003
-    ask_passphrase = true
+    ask_password = true
