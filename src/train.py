@@ -1,6 +1,7 @@
 import logging
 import os
 
+import boto3
 import joblib
 import matplotlib.pyplot as plt
 import mlflow
@@ -26,9 +27,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 clf = RandomForestClassifier(n_estimators=100, random_state=42)
 
-# mlflow_uri = os.getenv("MLFLOW_TRACKING_URI", "file:./mlruns"
-mlflow_uri = os.getenv("MLFLOW_TRACKING_URI", "https://mlops-indra.bccdev.id/mlflow/")
-
+mlflow_uri = os.getenv("MLFLOW_TRACKING_URI", "http://localhost:5000")
 
 mlflow.set_tracking_uri(mlflow_uri)
 

@@ -48,6 +48,12 @@ billiard==4.2.1
     # via celery
 blinker==1.9.0
     # via flask
+boto3==1.40.33
+    # via simple-mlops-deployment (pyproject.toml)
+botocore==1.40.33
+    # via
+    #   boto3
+    #   s3transfer
 cachetools==5.5.2
     # via
     #   google-auth
@@ -251,6 +257,10 @@ itsdangerous==2.2.0
     # via flask
 jinja2==3.1.6
     # via flask
+jmespath==1.0.1
+    # via
+    #   boto3
+    #   botocore
 joblib==1.5.2
     # via scikit-learn
 kiwisolver==1.4.9
@@ -413,6 +423,7 @@ pytest==8.4.1
     # via simple-mlops-deployment (pyproject.toml)
 python-dateutil==2.9.0.post0
     # via
+    #   botocore
     #   celery
     #   graphene
     #   matplotlib
@@ -448,6 +459,8 @@ ruamel-yaml==0.18.15
     #   gto
 ruamel-yaml-clib==0.2.12
     # via ruamel-yaml
+s3transfer==0.14.0
+    # via boto3
 scikit-learn==1.7.1
     # via
     #   simple-mlops-deployment (pyproject.toml)
@@ -537,6 +550,7 @@ uritemplate==4.2.0
     # via google-api-python-client
 urllib3==2.5.0
     # via
+    #   botocore
     #   docker
     #   dulwich
     #   requests

@@ -16,4 +16,5 @@ dependencies = [
     "seaborn>=0.13.2",
     "uvicorn>=0.35.0",
     "dvc-ssh>=4.2.1",
+    "boto3>=1.40.33",
 ]
