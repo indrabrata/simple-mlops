@@ -8,6 +8,7 @@ import mlflow
 import numpy as np
 import seaborn as sns
 from mlflow import sklearn as mlflow_sklearn
+from mlflow.models import infer_signature
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import (accuracy_score, confusion_matrix, f1_score,
                              precision_score, recall_score, roc_auc_score)
@@ -86,11 +87,12 @@ with mlflow.start_run() as run:
         logging.warning(f"Could not log plot artifact: {e}")
     plt.close()
     
-    
+    signature = infer_signature(X_train, clf.predict(X_train))
     try:
         mlflow_sklearn.log_model(
             clf, 
             name="model",
+            signature=signature,
             registered_model_name="iris-ml",
         )
         logging.info("MLflow model logged successfully")

@@ -81,6 +81,10 @@ jobs:
       - name: Download dataset with debug
         run: |
           echo "Attempting DVC pull with verbose output..."
+          echo $AWS_ACCESS_KEY_ID
+          echo $AWS_SECRET_ACCESS_KEY
+          echo $MLFLOW_S3_ENDPOINT_URL
+
           dvc pull -v
 
       - name: "Run data validation tests ✅"
