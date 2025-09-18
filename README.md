@@ -8,7 +8,7 @@ This repository contains a simple example of implementation github action in MLO
 - Integration with FastAPI for serving the model
 - Using MLflow for experiment tracking
 - Pushing docker image into registry
-- Version control with DVC (not yet)
+- Version control with DVC
 
 ## Note for self-hosted runner
 
