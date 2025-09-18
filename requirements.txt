@@ -139,7 +139,9 @@ dvc-objects==5.1.1
 dvc-render==1.0.2
     # via dvc
 dvc-ssh==4.2.1
-    # via dvc
+    # via
+    #   simple-mlops-deployment (pyproject.toml)
+    #   dvc
 dvc-studio-client==0.22.0
     # via dvc
 dvc-task==0.40.2

@@ -15,4 +15,5 @@ dependencies = [
     "scikit-learn>=1.7.1",
     "seaborn>=0.13.2",
     "uvicorn>=0.35.0",
+    "dvc-ssh>=4.2.1",
 ]

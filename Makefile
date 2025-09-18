@@ -12,3 +12,6 @@ test-model:
 
 test-api:
 	pytest -q tests/test_api.py
+
+compose:
+	docker compose -f deployement/compose.yaml up -d
