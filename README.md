@@ -7,7 +7,10 @@ This repository contains a simple example of implementation github action in MLO
 - Model training and validation
 - Integration with FastAPI for serving the model
 - Using MLflow for experiment tracking
+  - Using Minio as an artifact store
+  - Postgres as a backend store
 - Pushing docker image into registry
+- Scanning docker image for vulnerabilities
 - Version control with DVC
 
 ## Note for self-hosted runner
